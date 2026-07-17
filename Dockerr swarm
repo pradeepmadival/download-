@@ -1,0 +1,19 @@
+1. Install VirtualBox (Host Ubuntu)
+sudo apt update
+sudo apt install -y virtualbox
+Verify:
+vboxmanage --version
+a. Add HashiCorp GPG key
+curl -fsSL https://apt.releases.hashicorp.com/gpg | \
+sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+b. Add HashiCorp repository
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+c. Update & install Vagrant
+sudo apt update
+sudo apt install -y vagrant
+d. Verify
+vagrant --version
+output:
+Vagrant 2.x.x
