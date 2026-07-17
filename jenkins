@@ -1,0 +1,128 @@
+For your **Ubuntu DevOps lab**, these are the standard Jenkins installation steps.
+
+### Step 1 — Update packages
+
+```bash
+sudo apt update
+```
+
+---
+
+### Step 2 — Install Java (required for Jenkins)
+
+```bash
+sudo apt install -y openjdk-17-jdk
+```
+
+Verify:
+
+```bash
+java -version
+```
+
+---
+
+### Step 3 — Add Jenkins repository key
+
+```bash
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+/usr/share/keyrings/jenkins-keyring.asc > /dev/null
+```
+
+---
+
+### Step 4 — Add Jenkins repository
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+https://pkg.jenkins.io/debian-stable binary/" | sudo tee \
+/etc/apt/sources.list.d/jenkins.list > /dev/null
+```
+
+---
+
+### Step 5 — Update package list
+
+```bash
+sudo apt update
+```
+
+---
+
+### Step 6 — Install Jenkins
+
+```bash
+sudo apt install -y jenkins
+```
+
+---
+
+### Step 7 — Start and enable Jenkins
+
+```bash
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+```
+
+---
+
+### Step 8 — Check Jenkins status
+
+```bash
+sudo systemctl status jenkins
+```
+
+---
+
+### Step 9 — Open Jenkins
+
+Open your browser:
+
+```text
+http://localhost:8080
+```
+
+---
+
+### Step 10 — Get the initial admin password
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+Copy the password and paste it into the Jenkins setup page.
+
+---
+
+### Step 11 — Install Suggested Plugins
+
+Click:
+
+```
+Install Suggested Plugins
+```
+
+Create your admin user and Jenkins is ready to use.
+
+---
+
+## Quick version for the exam
+
+```bash
+sudo apt update
+sudo apt install -y openjdk-17-jdk
+
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt update
+sudo apt install -y jenkins
+
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+This is the installation sequence I'd use in your lab if Jenkins isn't already installed.
