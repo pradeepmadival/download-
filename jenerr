@@ -1,0 +1,98 @@
+If you have **sudo access** and your instructor allows resetting Jenkins on the exam machine, here are the methods.
+
+## Method 1 (Recommended): Reinstall Jenkins
+
+Stop Jenkins:
+
+```bash
+sudo systemctl stop jenkins
+```
+
+Remove Jenkins:
+
+```bash
+sudo apt purge -y jenkins
+sudo apt autoremove -y
+```
+
+Delete Jenkins data:
+
+```bash
+sudo rm -rf /var/lib/jenkins
+sudo rm -rf /etc/default/jenkins
+sudo rm -rf /var/log/jenkins
+```
+
+Reinstall:
+
+```bash
+sudo apt update
+sudo apt install -y jenkins
+```
+
+Start Jenkins:
+
+```bash
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+```
+
+Get the initial admin password:
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+Open:
+
+```
+http://localhost:8080
+```
+
+Paste the password and create a new admin user.
+
+---
+
+## Method 2: Disable Security (Only if permitted)
+
+Edit the Jenkins config:
+
+```bash
+sudo nano /var/lib/jenkins/config.xml
+```
+
+Change:
+
+```xml
+<useSecurity>true</useSecurity>
+```
+
+to
+
+```xml
+<useSecurity>false</useSecurity>
+```
+
+Restart Jenkins:
+
+```bash
+sudo systemctl restart jenkins
+```
+
+Now Jenkins should open without a login. (After the exam, security should be re-enabled.)
+
+---
+
+## Method 3: Reset the Admin Password
+
+If you only need to change the admin password, you can use the Jenkins Script Console—but that requires logging in first. If you can't log in, reinstalling is generally simpler.
+
+### For your exam
+
+Before reinstalling, check whether Jenkins is already installed and running:
+
+```bash
+systemctl status jenkins
+```
+
+If it's installed but inaccessible because of unknown credentials, ask the instructor whether they expect you to reuse the existing installation or whether you're allowed to reinstall it. Reinstalling on a shared machine could affect other students if the machine is intended to be reused.
